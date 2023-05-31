@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Currently Playing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            text-align: center;
+            padding: 40px;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            transition: background-image 0.5s ease;
+        }
+
+        h1 {
+            font-weight: 700;
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        #track-info {
+            font-weight: 400;
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        #album-cover {
+            max-width: 300px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+
+        #progress-bar {
+            width: 100%;
+            max-width: 400px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.6);
+            margin: 0 auto;
+        }
+
+        #progress-bar .progress {
+            height: 100%;
+            background-color: #1db954;
+            width: 0%;
+        }
+
+        #track-times {
+            font-weight: 400;
+            font-size: 14px;
+            margin-top: 10px;
+            color: #ffffff;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+          updateCurrentlyPlaying();
+          setInterval(updateCurrentlyPlaying, 1000); // Update every 1 second
+        });
+
+        function updateCurrentlyPlaying() {
+          $.getJSON('/currently-playing', function(data) {
+            if (data.track_name === 'No track currently playing') {
+              $('#track-info').text(data.track_name);
+              $('#album-cover').attr('src', '');
+              $('#progress-bar').hide();
+              $('#track-times').hide();
+              $('body').css('background-image', '');
+            } else {
+              $('#track-info').text(data.track_name + ' - ' + data.artist_name);
+              $('#album-cover').attr('src', data.album_cover_url);
+              $('#progress-bar').show();
+              $('#track-times').show();
+              var progress = (data.progress_ms / data.duration_ms) * 100;
+              animateProgressBar(progress);
+              setBlurredBackground(data.album_cover_url);
+              updateTrackTimes(data.progress_ms, data.duration_ms);
+            }
+          });
+        }
+
+        function setBlurredBackground(imageUrl) {
+          $('body').css('background-image', 'url(' + imageUrl + ')');
+        }
+
+        function animateProgressBar(progress) {
+          var progressBar = $('#progress-bar .progress');
+          progressBar.stop().animate({ width: progress + '%' }, 500);
+        }
+
+        function updateTrackTimes(progressMs, durationMs) {
+          var progressSec = Math.floor(progressMs / 1000);
+          var durationSec = Math.floor(durationMs / 1000);
+          var progressMin = Math.floor(progressSec / 60);
+          var durationMin = Math.floor(durationSec / 60);
+          var progressSecRemainder = progressSec % 60;
+          var durationSecRemainder = durationSec % 60;
+          var progressTime = progressMin + ':' + (progressSecRemainder < 10 ? '0' : '') + progressSecRemainder;
+          var durationTime = durationMin + ':' + (durationSecRemainder < 10 ? '0' : '') + durationSecRemainder;
+
+          $('#track-times').html('<span>' + progressTime + '</span>' + ' / ' + '<span>' + durationTime + '</span>');
+        }
+
+
+    </script>
+</head>
+<body>
+    <h1>Currently Playing</h1>
+
+    <img id="album-cover" src="" alt="Album Cover">
+    <div id="track-info"></div>
+    <div id="progress-bar">
+        <div class="progress"></div>
+    </div>
+    <div id="track-times"></div>
+</body>
+</html>

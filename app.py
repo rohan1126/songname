@@ -9,6 +9,7 @@ def index():
     return render_template('index.html')
 
 @app.route('/currently-playing')
+@app.route('/currently-playing')
 def currently_playing():
     scope = "user-read-currently-playing"
     sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope, client_id='a5f6ed27ca2b416daa27d5e39f5f5877',
@@ -20,10 +21,14 @@ def currently_playing():
         artist_name = current_track['item']['artists'][0]['name']
         album_name = current_track['item']['album']['name']
         album_cover_url = current_track['item']['album']['images'][0]['url']
+        progress_ms = current_track['progress_ms']
+        duration_ms = current_track['item']['duration_ms']
         return jsonify(track_name=track_name, artist_name=artist_name,
-                       album_name=album_name, album_cover_url=album_cover_url)
+                       album_name=album_name, album_cover_url=album_cover_url,
+                       progress_ms=progress_ms, duration_ms=duration_ms)
     else:
         return jsonify(track_name='No track currently playing')
 
+
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
