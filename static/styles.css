@@ -1,15 +1,16 @@
-html, body {
+body {
   margin: 0;
   padding: 0;
-  height: 100%;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: 100vh;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   transition: background-image 0.5s ease;
-
+  text-align: center; /* Center align all content */
 }
 
 .container {
@@ -21,44 +22,38 @@ html, body {
 #album-cover {
   max-width: 100%;
   margin-bottom: 0px;
-
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #track-info {
-  position: absolute;
-  top: 85%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  margin: 0;
-  padding: 0;
+  margin-top: 0px;
   color: #ffffff;
   font-size: 20px;
   text-shadow: 1px 1px #000000;
   font-weight: bold;
+  text-align: center;
 }
-
 
 #track-info h1 {
   font-weight: 700;
   font-size: 36px;
   margin-bottom: 10px;
-  margin-top:20px;
+  margin-top: 0;
 }
 
 #track-info p {
   font-weight: 400;
   font-size: 24px;
-  margin-bottom: 20px;
-  margin-top:20px;
+  margin-bottom: 0;
+  margin-top: 0;
 }
 
 #progress-bar {
   width: 100%;
   max-width: 700px;
   height: 3px;
-  margin: 0 auto;
-  border-radius: 6px;
-  overflow: hidden;
+  margin-bottom: 20px;
 }
 
 #progress-bar .progress {
@@ -90,7 +85,6 @@ html, body {
   filter: blur(70px); /* Adjust the blur value as needed */
 }
 
-
 /* Media Queries */
 @media (max-width: 768px) {
   body {
@@ -103,21 +97,14 @@ html, body {
   }
 
   #track-info {
-    top: 50%;
-    transform: translate(-50%, -50%);
-    margin-top: 0;
-    margin-bottom: 0;
+    margin-top: 10px;
   }
 
   #track-info h1 {
     font-size: 24px;
-    margin-top: 10px;
-    margin-bottom: 5px;
   }
 
   #track-info p {
     font-size: 20px;
-    margin-bottom: 10px;
-    margin-top: 5px;
   }
 }
