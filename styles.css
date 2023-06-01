@@ -1,0 +1,110 @@
+body {
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: background-image 0.5s ease;
+  text-align: center; /* Center align all content */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#album-cover {
+  max-width: 100%;
+  margin-bottom: 0px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#track-info {
+  margin-top: 0px;
+  color: #ffffff;
+  font-size: 20px;
+  text-shadow: 1px 1px #000000;
+  font-weight: bold;
+  text-align: center;
+}
+
+#track-info h1 {
+  font-weight: 700;
+  font-size: 36px;
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+
+#track-info p {
+  font-weight: 400;
+  font-size: 24px;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+#progress-bar {
+  width: 100%;
+  max-width: 700px;
+  height: 3px;
+  margin-bottom: 20px;
+}
+
+#progress-bar .progress {
+  height: 100%;
+  background-color: white;
+  width: 0%;
+}
+
+#track-times {
+  font-weight: 400;
+  font-size: 14px;
+  margin-top: 10px;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: background-image 0.5s ease;
+  filter: blur(70px); /* Adjust the blur value as needed */
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  body {
+    padding: 20px;
+  }
+
+  #album-cover {
+    max-width: 80%;
+    margin-bottom: 20px;
+  }
+
+  #track-info {
+    margin-top: 10px;
+  }
+
+  #track-info h1 {
+    font-size: 24px;
+  }
+
+  #track-info p {
+    font-size: 20px;
+  }
+}
