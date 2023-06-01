@@ -26,8 +26,10 @@ def currently_playing():
         return jsonify(track_name=track_name, artist_name=artist_name,
                        album_name=album_name, album_cover_url=album_cover_url,
                        progress_ms=progress_ms, duration_ms=duration_ms)
+
     else:
         return jsonify(track_name='No track currently playing')
+
 
 
 if __name__ == '__main__':

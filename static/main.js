@@ -18,15 +18,17 @@
               $('#track-times').show();
               var progress = (data.progress_ms / data.duration_ms) * 100;
               animateProgressBar(progress);
-              setBlurredBackground(data.album_cover_url);
+              setBlurredBackground(data.album_cover_url); // Blur the image
               updateTrackTimes(data.progress_ms, data.duration_ms);
             }
           });
         }
 
+
         function setBlurredBackground(imageUrl) {
-          $('body').css('background-image', 'url(' + imageUrl + ')');
+          $('.background').css('background-image', 'url(' + imageUrl + ')');
         }
+
 
         function animateProgressBar(progress) {
           var progressBar = $('#progress-bar .progress');
